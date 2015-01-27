@@ -1,16 +1,17 @@
 PODS:
   - FontAwesome+iOS (0.1.4)
-  - PPiAwesomeButton (1.5.0):
+  - PPiAwesomeButton (1.5.2.1):
     - FontAwesome+iOS
-    - UIView+AutoLayout
-  - UIView+AutoLayout (2.0.1)
 
 DEPENDENCIES:
-  - PPiAwesomeButton
+  - PPiAwesomeButton (from `/Users/vadimyushchenko/Projects/Objective-c/PPiAwesomeButton/`)
+
+EXTERNAL SOURCES:
+  PPiAwesomeButton:
+    :path: /Users/vadimyushchenko/Projects/Objective-c/PPiAwesomeButton/
 
 SPEC CHECKSUMS:
   FontAwesome+iOS: 816c20304edef4ca92835de669577005cbaaf261
-  PPiAwesomeButton: 8df6264bd9310e37f294d9fb3a6fb015273d9659
-  UIView+AutoLayout: d876c583c3dec28b5c3916175ea4b6ad70a8be34
+  PPiAwesomeButton: f6d911717959b2bbc575e6027bbc8f184452b0b9
 
 COCOAPODS: 0.34.4

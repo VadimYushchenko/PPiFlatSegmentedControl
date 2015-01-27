@@ -10,6 +10,8 @@
 	<string>PPiFlatSegmentedControl-Demo</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>1A06BFE5FD5940886D744803882F741AA4EC8002</key>
+		<string>github.com:VadimYushchenko/PPiAwesomeButton.git</string>
 		<key>79081C6E399342BC42478403BF9847D1969F9762</key>
 		<string>ssh://github.com/pepibumur/PPiFlatSegmentedControl.git</string>
 	</dict>
@@ -17,6 +19,8 @@
 	<string>PPiFlatSegmentedControl-Demo/PPiFlatSegmentedControl-Demo.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+		<key>1A06BFE5FD5940886D744803882F741AA4EC8002</key>
+		<string>../../../PPiAwesomeButton</string>
 		<key>79081C6E399342BC42478403BF9847D1969F9762</key>
 		<string>../..</string>
 	</dict>
@@ -28,6 +32,14 @@
 	<string>79081C6E399342BC42478403BF9847D1969F9762</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>1A06BFE5FD5940886D744803882F741AA4EC8002</string>
+			<key>IDESourceControlWCCName</key>
+			<string>PPiAwesomeButton</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>

@@ -16,6 +16,7 @@
 @property (nonatomic,strong) NSMutableArray *separators;
 @property (nonatomic,copy) selectionBlock selBlock;
 @property (nonatomic) CGFloat iconSeparation;
+@property (nonatomic) BOOL isFixedWidth;
 @end
 
 @implementation PPiFlatSegmentedControl
@@ -31,11 +32,15 @@
         //Selection block
         _selBlock=block;
         
+         self.isFixedWidth = CGRectGetWidth(frame)>0;
+        
         //Icon separation
         self.iconSeparation = separation;
         
         //Icon position
         self.iconPosition = position;
+        
+        self.padding = 10.f;
         
         //Adding items
         [self addItems:items withFrame:frame];
@@ -48,7 +53,7 @@
         self.layer.cornerRadius=segment_corner;
         
         //Default selected 0
-        _currentSelected=0;
+        _currentSelected=-1;
     }
     return self;
 }
@@ -67,17 +72,19 @@
     
     //Generating segments
     float buttonWith=ceil(frame.size.width / items.count);
+   
     int i=0;
     for(PPiFlatSegmentItem *item in items){
         NSString *text=item.title;
         NSObject *icon=item.icon;
-        
+
         UIAwesomeButton  *button;
         if([icon isKindOfClass:[UIImage class]]) {
             button = [[UIAwesomeButton alloc] initWithFrame:CGRectMake(buttonWith*i, 0, buttonWith, frame.size.height) text:text iconImage:(UIImage *)icon attributes:@{} andIconPosition:self.iconPosition];
         }
         else {
             button = [[UIAwesomeButton alloc] initWithFrame:CGRectMake(buttonWith*i, 0, buttonWith, frame.size.height) text:text icon:(NSString *)icon attributes:@{} andIconPosition:self.iconPosition];
+            [button setIcon:item.selectedIcon forUIControlState:UIControlStateSelected];
         }
         
         UIAwesomeButton __weak *wbutton = button;
@@ -122,8 +129,10 @@
 
 #pragma mark - Actions
 
--(void)segmentSelected:(id)sender
+-(void)segmentSelected:(UIControl *)sender
 {
+//    sender.selected = !sender.selected;
+    
     if(sender) {
         NSUInteger selectedIndex=[self.segments indexOfObject:sender];
         [self setSelected:YES segmentAtIndex:selectedIndex];
@@ -168,12 +177,17 @@
         self.layer.borderWidth=0;
     }
     
+    if (self.isFixedWidth) {
+        
+
     //Updating segments color
     for (UIView *separator in self.separators) {
         separator.backgroundColor=self.borderColor;
         separator.frame=CGRectMake(separator.frame.origin.x, separator.frame.origin.y,self.borderWidth , separator.frame.size.height);
     }
-    
+    }
+    int i = 0;
+    CGFloat width = 0;
     //Modifying buttons with current State
     for (UIAwesomeButton *segment in self.segments)
     {
@@ -187,6 +201,8 @@
         //Setting icon separation
         [segment setSeparation:self.iconSeparation];
         
+
+        
         //Setting format depending on if it's selected or not
         if([self.segments indexOfObject:segment]==self.currentSelected){
             //Selected-one
@@ -199,7 +215,39 @@
             if(self.color)[segment setBackgroundColor:self.color forUIControlState:UIControlStateNormal];
             if(self.textAttributes)
                 [segment setAttributes:self.textAttributes forUIControlState:UIControlStateNormal];
+            
         }
+        if (!self.isFixedWidth) {
+            
+        
+        if(i!=0){
+            UIView *separator = [self.separators objectAtIndex:i-1];
+            separator.backgroundColor=self.borderColor;
+            
+            separator.frame=CGRectMake(width, separator.frame.origin.y,self.borderWidth , separator.frame.size.height);
+        }
+
+     CGRect titleRect = [segment.getButtonText boundingRectWithSize:CGSizeMake(300.f, CGFLOAT_MAX) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:self.textAttributes context:nil];
+        
+        CGRect iconRect = [segment.getIcon boundingRectWithSize:CGSizeMake(17, 17) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:nil context:nil];
+        
+        CGRect frame = segment.frame;
+        frame.origin.x = width;
+        frame.size.width = titleRect.size.width+iconRect.size.width+2*self.borderWidth+ 2*self.padding;
+        segment.frame = frame;
+        
+        width += frame.size.width;
+        
+        i++;
+        }
+    }
+    if (!self.isFixedWidth) {
+
+    UIAwesomeButton *segment = [self.segments lastObject];
+    
+    CGRect contentFrame = self.frame;
+    contentFrame.size.width = CGRectGetMaxX(segment.frame);
+    self.frame = contentFrame;
     }
 }
 
@@ -250,6 +298,17 @@
 }
 
 -(void)setSelected:(BOOL)selected segmentAtIndex:(NSUInteger)segment{
+    
+    int i = 0;
+    for (UIAwesomeButton *button in self.segments) {
+        if (segment == i) {
+            button.selected = YES;
+        }else {
+            button.selected = NO;
+        }
+        i++;
+    }
+    
     if (selected) {
         self.currentSelected=segment;
         [self updateSegmentsFormat];

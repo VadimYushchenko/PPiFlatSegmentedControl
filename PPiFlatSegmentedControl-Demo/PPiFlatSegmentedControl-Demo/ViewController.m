@@ -19,14 +19,14 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    NSArray *items = @[[[PPiFlatSegmentItem alloc] initWithTitle:@"Face" andIcon:@"icon-facebook"],
+    NSArray *items = @[[[PPiFlatSegmentItem alloc] initWithTitle:@"Facebook" andIcon:@"icon-caret-down" andSelectedIcon:@"icon-caret-up"],
                        [[PPiFlatSegmentItem alloc] initWithTitle:@"Linkedin" andIcon:@"icon-linkedin"],
                        [[PPiFlatSegmentItem alloc] initWithTitle:@"Twitter" andIcon:@"icon-twitter"]];
-    PPiFlatSegmentedControl *segmented=[[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(20, 20, 250, 30)
+    PPiFlatSegmentedControl *segmented=[[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(20, 20, 0, 30)
                                                                                 items:items
                                                                          iconPosition:IconPositionRight
                                                                     andSelectionBlock:^(NSUInteger segmentIndex) {}
-                                                                       iconSeparation:5];
+                                                                       iconSeparation:3];
     segmented.color=[UIColor colorWithRed:88.0f/255.0 green:88.0f/255.0 blue:88.0f/255.0 alpha:1];
     segmented.borderWidth=0.5;
     segmented.borderColor= [UIColor colorWithRed:0.0f/255.0 green:141.0f/255.0 blue:147.0f/255.0 alpha:1];

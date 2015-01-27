@@ -1,12 +1,12 @@
 Pod::Spec.new do |s|
   s.name = 'PPiFlatSegmentedControl'
-  s.version = '1.4.0'
+  s.version = '1.4.1'
   s.platform = :ios, '6.0'
   s.license = 'MIT'
   s.summary = 'Flat UISegmentedControl for flat designs.'
   s.homepage = 'https://github.com/pepibumur/PPiFlatSegmentedControl'
   s.author = { 'Pedro Piñera' => 'pepibumur@gmail.com' }
-  s.source = { :git => 'https://github.com/VadimYushchenko/PPiFlatSegmentedControl.git', :tag => '1.4.0' }
+  s.source = { :git => 'https://github.com/VadimYushchenko/PPiFlatSegmentedControl.git', :tag => '1.4.1' }
 
   s.description = <<-DESC
 
@@ -16,5 +16,5 @@ Pod::Spec.new do |s|
   s.source_files = 'Control/*.{h,m}'
   s.framework = 'QuartzCore'
   s.public_header_files = 'Control/*.h'
-  s.dependency 'PPiAwesomeButton'
+  s.dependency :git => 'https://github.com/VadimYushchenko/PPiAwesomeButton.git' #'PPiAwesomeButton'
 end
