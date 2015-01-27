@@ -16,5 +16,5 @@ Pod::Spec.new do |s|
   s.source_files = 'Control/*.{h,m}'
   s.framework = 'QuartzCore'
   s.public_header_files = 'Control/*.h'
-  s.dependency :git => 'https://github.com/VadimYushchenko/PPiAwesomeButton.git' #'PPiAwesomeButton'
+  s.dependency 'PPiAwesomeButton' :podspec => 'https://raw.githubusercontent.com/VadimYushchenko/PPiAwesomeButton/master/PPiAwesomeButton.podspec' #'PPiAwesomeButton'
 end
