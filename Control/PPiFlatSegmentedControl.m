@@ -8,7 +8,7 @@
 
 #import "PPiFlatSegmentedControl.h"
 #import "UIAwesomeButton.h"
-#define segment_corner 3.0
+#define segment_corner 5.0
 
 @interface PPiFlatSegmentedControl()
 @property (nonatomic,strong) NSMutableArray *segments;
@@ -50,7 +50,7 @@
         
         //Applying corners
         self.layer.masksToBounds=YES;
-        self.layer.cornerRadius=segment_corner;
+        self.cornerRadius=segment_corner;
         
         //Default selected 0
         _currentSelected=-1;
@@ -326,6 +326,22 @@
     _selectedTextAttributes=selectedTextAttributes;
     [self updateSegmentsFormat];
 }
+
+-(void)setCornerRadius:(CGFloat)cornerRadius{
+    if (_cornerRadius != cornerRadius) {
+        _cornerRadius = cornerRadius;
+        self.layer.cornerRadius = cornerRadius;
+    }
+    
+}
+
+-(void)setPadding:(CGFloat)padding{
+    if (_padding != padding) {
+        _padding = padding;
+        [self updateSegmentsFormat];
+    }
+}
+
 
 @end
 
