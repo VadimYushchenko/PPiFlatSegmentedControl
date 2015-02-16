@@ -21,6 +21,63 @@
 
 @implementation PPiFlatSegmentedControl
 
+- (id)initWithFrame:(CGRect)frame items:(NSArray*)items iconPosition:(IconPosition)position andSelectionBlock:(selectionBlock)block{
+    self = [super initWithFrame:frame];
+    if (self) {
+        //Selection block
+        self.selBlock=block;
+        
+        //        _segmentPadding = 15;
+        //Background Color
+        self.backgroundColor=[UIColor clearColor];
+        
+        //Generating segments
+        float buttonWith=round(self.frame.size.width / items.count);
+        int i=0;
+        for(NSDictionary *item in items){
+            NSString *text=item[@"text"];
+            NSString *icon=item[@"icon"];
+            //            buttonWith +=15;
+            
+            UIButton *button =[[UIButton alloc] initWithFrame:CGRectMake(buttonWith*i, 0, buttonWith, self.frame.size.height) text:text icon:icon textAttributes:nil andIconPosition:position];
+            button.titleLabel.textAlignment = NSTextAlignmentCenter;
+            [button addTarget:self action:@selector(segmentSelected:) forControlEvents:UIControlEventTouchUpInside];
+            button.frame = CGRectIntegral(button.frame);
+            button.center = roundedCenterPoint(button.center);
+            
+            button.titleLabel.frame = CGRectIntegral(button.titleLabel.frame);
+            button.titleLabel.center = roundedCenterPoint(button.titleLabel.center);
+            
+            [button setTitleShadowColor:[UIColor clearColor] forState:UIControlStateNormal];
+            //Adding to self view
+            
+            [self.segments addObject:button];
+            [self addSubview:button];
+            
+            
+            //Adding separator
+            if(i!=0){
+                UIView *separatorView=[[UIView alloc] initWithFrame:CGRectMake(i*buttonWith, 0, self.borderWidth, frame.size.height)];
+                [self addSubview:separatorView];
+                [self.separators addObject:separatorView];
+            }
+            
+            i++;
+        }
+        
+        //        self.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
+        
+        //Applying corners
+        self.layer.masksToBounds=YES;
+        self.layer.cornerRadius=segment_corner;
+        
+        //Default selected 0
+        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+        _currentSelected=[ud integerForKey:@"jow_theme"];
+    }
+    return self;
+}
+
 - (id)initWithFrame:(CGRect)frame
               items:(NSArray*)items
        iconPosition:(IconPosition)position
@@ -315,6 +372,10 @@
     }
 }
 
+-(void)setEnabled:(BOOL)enabled forSegmentAtIndex:(NSUInteger)segment{
+    [self setSelected:enabled segmentAtIndex:segment];
+}
+
 -(void)setTextAttributes:(NSDictionary *)textAttributes
 {
     _textAttributes=textAttributes;
@@ -342,6 +403,9 @@
     }
 }
 
+CGPoint roundedCenterPoint(CGPoint pt) {
+    return CGPointMake(round(pt.x), round(pt.y));
+}
 
 @end
 

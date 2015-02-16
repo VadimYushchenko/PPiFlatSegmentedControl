@@ -27,6 +27,8 @@ typedef void(^selectionBlock)(NSUInteger segmentIndex);
 @property (nonatomic) CGFloat padding;
 @property (nonatomic) CGFloat cornerRadius;
 
+- (id)initWithFrame:(CGRect)frame items:(NSArray*)items iconPosition:(IconPosition)position andSelectionBlock:(selectionBlock)block;
+
 - (id)initWithFrame:(CGRect)frame
               items:(NSArray*)items
        iconPosition:(IconPosition)position
@@ -38,5 +40,6 @@ typedef void(^selectionBlock)(NSUInteger segmentIndex);
 - (void)setTitle:(id)title forSegmentAtIndex:(NSUInteger)index;
 - (void)setSelectedTextAttributes:(NSDictionary*)attributes;
 - (void)setSegmentAtIndex:(NSUInteger)index enabled:(BOOL)enabled;
+- (void)setEnabled:(BOOL)enabled forSegmentAtIndex:(NSUInteger)segment;
 
 @end
