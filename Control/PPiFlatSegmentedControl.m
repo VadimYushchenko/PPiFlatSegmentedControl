@@ -407,5 +407,21 @@ CGPoint roundedCenterPoint(CGPoint pt) {
     return CGPointMake(round(pt.x), round(pt.y));
 }
 
+-(UIAwesomeButton *)itemAtIndex:(NSInteger)index{
+    if (index > self.segments.count) {
+        return nil;
+    }
+    UIAwesomeButton *button = self.segments[index];
+    return button;
+}
+
+-(CGRect)frameItemAtIndex:(NSInteger)index{
+    if (index > self.segments.count) {
+        return CGRectZero;
+    }
+    
+    UIAwesomeButton *button = [self itemAtIndex:index];
+    return button.frame;
+}
 @end
 

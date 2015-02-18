@@ -13,6 +13,7 @@
 
 typedef void(^selectionBlock)(NSUInteger segmentIndex);
 
+
 @interface PPiFlatSegmentedControl : UIControl
 
 @property (nonatomic,strong) UIColor *selectedColor;
@@ -41,5 +42,6 @@ typedef void(^selectionBlock)(NSUInteger segmentIndex);
 - (void)setSelectedTextAttributes:(NSDictionary*)attributes;
 - (void)setSegmentAtIndex:(NSUInteger)index enabled:(BOOL)enabled;
 - (void)setEnabled:(BOOL)enabled forSegmentAtIndex:(NSUInteger)segment;
-
+-(UIAwesomeButton *)itemAtIndex:(NSInteger)index;
+-(CGRect)frameItemAtIndex:(NSInteger)index;
 @end
