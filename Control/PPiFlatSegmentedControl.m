@@ -345,6 +345,7 @@
         UIAwesomeButton *segment=self.segments[index];
         if([title isKindOfClass:[NSString class]]){
             [segment setButtonText:title];
+            [self updateSegmentsFormat];
         }
     }
 }
