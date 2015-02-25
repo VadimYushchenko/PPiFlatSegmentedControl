@@ -27,6 +27,7 @@ typedef void(^selectionBlock)(NSUInteger segmentIndex);
 @property (nonatomic,readonly) NSUInteger numberOfSegments;
 @property (nonatomic) CGFloat padding;
 @property (nonatomic) CGFloat cornerRadius;
+@property (nonatomic) NSUInteger currentSelected;
 
 - (id)initWithFrame:(CGRect)frame items:(NSArray*)items iconPosition:(IconPosition)position andSelectionBlock:(selectionBlock)block;
 

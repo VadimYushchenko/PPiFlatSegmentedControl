@@ -12,7 +12,6 @@
 
 @interface PPiFlatSegmentedControl()
 @property (nonatomic,strong) NSMutableArray *segments;
-@property (nonatomic) NSUInteger currentSelected;
 @property (nonatomic,strong) NSMutableArray *separators;
 @property (nonatomic,copy) selectionBlock selBlock;
 @property (nonatomic) CGFloat iconSeparation;
