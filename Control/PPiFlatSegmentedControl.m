@@ -16,6 +16,7 @@
 @property (nonatomic,copy) selectionBlock selBlock;
 @property (nonatomic) CGFloat iconSeparation;
 @property (nonatomic) BOOL isFixedWidth;
+@property (nonatomic, strong) NSMutableDictionary *specialTextAttribute;
 @end
 
 @implementation PPiFlatSegmentedControl
@@ -269,9 +270,18 @@
         else{
             //Non selected
             if(self.color)[segment setBackgroundColor:self.color forUIControlState:UIControlStateNormal];
-            if(self.textAttributes)
-                [segment setAttributes:self.textAttributes forUIControlState:UIControlStateNormal];
             
+            NSDictionary *specialAttribute = self.specialTextAttribute[@(i)];
+            
+            if (specialAttribute) {
+                [segment setAttributes:specialAttribute forUIControlState:UIControlStateNormal];
+            } else
+            
+            if(self.textAttributes){
+           
+                [segment setAttributes:self.textAttributes forUIControlState:UIControlStateNormal];
+
+            }
         }
         if (!self.isFixedWidth) {
             
@@ -374,6 +384,22 @@
 
 -(void)setEnabled:(BOOL)enabled forSegmentAtIndex:(NSUInteger)segment{
     [self setSelected:enabled segmentAtIndex:segment];
+}
+
+-(void)setTextAttributes:(NSDictionary *)textAttributes atIndex:(NSInteger)index{
+    if (index > self.segments.count) {
+        return;
+    }
+    
+    if (!self.specialTextAttribute) {
+        self.specialTextAttribute = [NSMutableDictionary dictionaryWithCapacity:self.segments.count];
+    }
+    if (!textAttributes) {
+        [self.specialTextAttribute removeObjectForKey:@(index)];
+    }else {
+        self.specialTextAttribute[@(index)] = textAttributes;
+    }
+    [self updateSegmentsFormat];
 }
 
 -(void)setTextAttributes:(NSDictionary *)textAttributes

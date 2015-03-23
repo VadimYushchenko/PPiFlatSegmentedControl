@@ -45,4 +45,5 @@ typedef void(^selectionBlock)(NSUInteger segmentIndex);
 - (void)setEnabled:(BOOL)enabled forSegmentAtIndex:(NSUInteger)segment;
 -(UIAwesomeButton *)itemAtIndex:(NSInteger)index;
 -(CGRect)frameItemAtIndex:(NSInteger)index;
+-(void)setTextAttributes:(NSDictionary *)textAttributes atIndex:(NSInteger)index;
 @end
