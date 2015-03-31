@@ -12,7 +12,7 @@
 #import "PPiFlatSegmentItem.h"
 
 typedef void(^selectionBlock)(NSUInteger segmentIndex);
-
+typedef void(^TextBlock)();
 
 @interface PPiFlatSegmentedControl : UIControl
 
@@ -40,6 +40,7 @@ typedef void(^selectionBlock)(NSUInteger segmentIndex);
 - (void)setSelected:(BOOL)selected segmentAtIndex:(NSUInteger)segment;
 - (BOOL)isSelectedSegmentAtIndex:(NSUInteger)index;
 - (void)setTitle:(id)title forSegmentAtIndex:(NSUInteger)index;
+-(void)setTitle:(id)title forSegmentAtIndex:(NSUInteger)index complition:(TextBlock)complition;
 - (void)setSelectedTextAttributes:(NSDictionary*)attributes;
 - (void)setSegmentAtIndex:(NSUInteger)index enabled:(BOOL)enabled;
 - (void)setEnabled:(BOOL)enabled forSegmentAtIndex:(NSUInteger)segment;

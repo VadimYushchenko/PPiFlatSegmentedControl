@@ -14,6 +14,7 @@
 @property (nonatomic,strong) NSMutableArray *segments;
 @property (nonatomic,strong) NSMutableArray *separators;
 @property (nonatomic,copy) selectionBlock selBlock;
+@property (nonatomic,copy) TextBlock textComplitionBlock;
 @property (nonatomic) CGFloat iconSeparation;
 @property (nonatomic) BOOL isFixedWidth;
 @property (nonatomic, strong) NSMutableDictionary *specialTextAttribute;
@@ -258,7 +259,8 @@
         //Setting icon separation
         [segment setSeparation:self.iconSeparation];
         
-
+//        segment.layer.borderColor = [UIColor redColor].CGColor;
+//        segment.layer.borderWidth = 1.f;
         
         //Setting format depending on if it's selected or not
         if([self.segments indexOfObject:segment]==self.currentSelected){
@@ -299,7 +301,13 @@
         
         CGRect frame = segment.frame;
         frame.origin.x = width;
-        frame.size.width = titleRect.size.width+iconRect.size.width+2*self.borderWidth+ 2*self.padding;
+            CGFloat buttonWidth = titleRect.size.width+iconRect.size.width+2*self.borderWidth+ 2*self.padding;
+           CGSize screenSize = [UIApplication sharedApplication].statusBarFrame.size;
+//            CGSize screenSize = [UIScreen mainScreen].bounds.size;
+            if (UIUserInterfaceIdiomPhone == UI_USER_INTERFACE_IDIOM() && screenSize.height < screenSize.width && screenSize.width == 320 && buttonWidth > 110) {
+                buttonWidth = 110;
+            }
+            frame.size.width = buttonWidth;
         segment.frame = frame;
         
         width += frame.size.width;
@@ -314,7 +322,9 @@
     CGRect contentFrame = self.frame;
     contentFrame.size.width = CGRectGetMaxX(segment.frame);
     self.frame = contentFrame;
+        
     }
+    [self layoutSubviews];
 }
 
 - (void)setItems:(NSArray*)items
@@ -350,11 +360,18 @@
 -(void)setTitle:(id)title forSegmentAtIndex:(NSUInteger)index
 {
     //Getting the Segment
+    [self setTitle:title forSegmentAtIndex:index complition:NULL];
+}
+
+-(void)setTitle:(id)title forSegmentAtIndex:(NSUInteger)index complition:(TextBlock)complition{
     if(index<self.segments.count) {
         UIAwesomeButton *segment=self.segments[index];
         if([title isKindOfClass:[NSString class]]){
             [segment setButtonText:title];
             [self updateSegmentsFormat];
+            if (complition) {
+                complition();
+            }
         }
     }
 }
@@ -449,5 +466,6 @@ CGPoint roundedCenterPoint(CGPoint pt) {
     UIAwesomeButton *button = [self itemAtIndex:index];
     return button.frame;
 }
+
 @end
 
