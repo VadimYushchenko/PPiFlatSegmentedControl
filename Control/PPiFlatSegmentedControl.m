@@ -266,8 +266,14 @@
         if([self.segments indexOfObject:segment]==self.currentSelected){
             //Selected-one
             if(self.selectedColor)[segment setBackgroundColor:self.selectedColor forUIControlState:UIControlStateNormal];
-            if(self.selectedTextAttributes)
+            NSDictionary *specialAttribute = self.specialTextAttribute[@(i)];
+            
+            if (specialAttribute) {
+                [segment setAttributes:specialAttribute forUIControlState:UIControlStateNormal];
+            } else
+                if(self.selectedTextAttributes){
                 [segment setAttributes:self.selectedTextAttributes forUIControlState:UIControlStateNormal];
+                }
         }
         else{
             //Non selected
