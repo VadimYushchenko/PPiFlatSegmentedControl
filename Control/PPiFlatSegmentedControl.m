@@ -307,7 +307,7 @@
         
         CGRect frame = segment.frame;
         frame.origin.x = width;
-            CGFloat buttonWidth = titleRect.size.width+iconRect.size.width+2*self.borderWidth+ 2*self.padding;
+            CGFloat buttonWidth = titleRect.size.width+2*self.borderWidth+ 2*self.padding;//+iconRect.size.width
            CGSize screenSize = [UIApplication sharedApplication].statusBarFrame.size;
 //            CGSize screenSize = [UIScreen mainScreen].bounds.size;
             if (UIUserInterfaceIdiomPhone == UI_USER_INTERFACE_IDIOM() && screenSize.height < screenSize.width) {
