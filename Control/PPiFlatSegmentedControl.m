@@ -146,8 +146,9 @@
         }
         
         UIAwesomeButton __weak *wbutton = button;
+        __weak PPiFlatSegmentedControl *weakSelf = self;
         [button setActionBlock:^(UIAwesomeButton *button) {
-            [self segmentSelected:wbutton];
+            [weakSelf segmentSelected:wbutton];
         }];
         
         //Adding to self view
